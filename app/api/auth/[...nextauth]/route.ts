@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { Resend } from "resend";
 import type { User as PrismaUser } from "@/app/generated/prisma";
 
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const handler = NextAuth({
@@ -25,7 +26,9 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-
+  pages: {
+    signIn: "/onboarding", // the page where user enters email
+  },
   callbacks: {
     async redirect({ baseUrl }) {
       return `${baseUrl}/home`;
